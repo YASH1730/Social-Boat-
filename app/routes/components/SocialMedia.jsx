@@ -1,12 +1,15 @@
 import {  Box, Button, Card, Grid, Text, TextField } from '@shopify/polaris';
 import React, { useCallback, useState } from 'react';
-import { AddMajor, DeleteMajor } from '@shopify/polaris-icons'
+import { AddMajor, DeleteMajor, UploadMajor } from '@shopify/polaris-icons'
 import ModalBox from './utility/Modal_Box';
 import { generateUniqueId } from './GenerateSnippet.js';
+import UploadModalBox from './utility/Upload_Modal.jsx';
 const SocialMedia = ({ state, setState }) => {
     const [active, setActive] = useState(false);
+    const [activeUpload, setUploadActive] = useState(false);
 
     const handleModal = useCallback(() => setActive(!active), [active]);
+    const handleModalUpload = useCallback(() => setUploadActive(!activeUpload), [activeUpload]);
     const addRow =useCallback((icon) => {
 
        return  setState({
@@ -15,7 +18,7 @@ const SocialMedia = ({ state, setState }) => {
                 id :generateUniqueId(),
                 img : icon.img,
                 name : icon.name,
-                url : "hr",
+                url : "",
             }
         })
     },[state.rows]);
@@ -31,8 +34,12 @@ const SocialMedia = ({ state, setState }) => {
 
     
 
-    const activator = <div className='flex' style={{ width: "100%", justifyContent: 'end' }}>
-        <Button icon={AddMajor} onClick={handleModal} tone='success'>Add Social Icon</Button>
+    const activator = <div >
+        <Button icon={AddMajor} onClick={handleModal} variant='primary' tone='success'>Add Icon</Button>
+    </div>;
+
+    const activatorUpload = <div >
+        <Button icon={UploadMajor} onClick={handleModalUpload} >Upload Icon</Button>
     </div>;
 
 function handleChange(target,val) {
@@ -51,7 +58,10 @@ function handleChange(target,val) {
             <Card>
                 <Grid columns={{ sm: 3 }}>
                     <Grid.Cell columnSpan={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12 }}>
+                    <div className='flex' style={{gap : "1rem", width: "100%", justifyContent: 'end' }}>
+                        <UploadModalBox activator={activatorUpload} active={activeUpload} handleChange={handleModalUpload} addRow={addRow}/>
                         <ModalBox activator={activator} active={active} handleChange={handleModal} addRow={addRow}/>
+                    </div>
                     </Grid.Cell>
                     <Grid.Cell columnSpan={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 12 }}>
                         <Table state={state} handleChange={handleChange} removeRow={removeRow} />

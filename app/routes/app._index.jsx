@@ -122,6 +122,7 @@ const initialState = {
   shape : "square",
   icon_width : 50,
   top_pos : 0,
+  bottom_pos : 0,
   username : "",
   email : "",
   shop : "",

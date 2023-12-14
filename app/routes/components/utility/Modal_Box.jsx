@@ -6,12 +6,20 @@ import fb from '../../social/icons8-facebook.svg'
 import insta from '../../social/icons8-instagram.svg'
 import pin from '../../social/icons8-pinterest.svg'
 import twitter from '../../social/icons8-twitter.svg'
+import whatsapp from '../../social/icons8-whatsapp.svg'
 import linkdin from '../../social/icons8-linkedin.svg'
+import phone from '../../social/icons8-phone.svg'
+import mail from '../../social/icons8-gmail.svg'
 
 export default function ModalBox({ activator, handleChange, active, addRow }) {
 
     const icons = [{ img: youTube, name: 'YouTube' },
-     { img: fb, name: 'Facebook' }, { img: insta, name: 'Instagram' }, { img: pin, name: "Pinterest" }, { img: twitter, name: 'Twitter' }, { img: linkdin, name: "LinkdIn" }]
+    { img: fb, name: 'Facebook' }, { img: insta, name: 'Instagram' },
+     { img: pin, name: "Pinterest" },
+     { img: whatsapp, name: "Whatsapp" },
+     { img: phone, name: "Phone" },
+     { img: mail, name: "Gmail" },
+      { img: twitter, name: 'Twitter' }, { img: linkdin, name: "LinkdIn" }]
 
     return (
         <Modal

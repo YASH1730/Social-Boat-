@@ -1,5 +1,5 @@
 import { Box, Card, Divider, Grid, RangeSlider, Select, Text, } from '@shopify/polaris';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export default function Edit({ state, setState }) {
   function handleChange(target, e) {
@@ -10,6 +10,8 @@ export default function Edit({ state, setState }) {
       }
     })
   }
+
+ 
 
   const options = [
     { label: 'top-right', value: 'top-right' },
@@ -22,6 +24,18 @@ export default function Edit({ state, setState }) {
     { label: 'rounded', value: 'rounded' },
     { label: 'square', value: 'square' },
     ];
+
+  useEffect(()=>{
+    handleOnChangePos();
+  },[state.position])
+
+  function handleOnChangePos() {
+    setState({
+      type :"Set_Value",
+      payload : state.position.includes('bottom') ? {top_pos :0} : {bottom_pos : 0}
+    })
+    
+  }
 
   return (
     <Box>
@@ -82,6 +96,7 @@ export default function Edit({ state, setState }) {
               label="Top Margin (Only Applicable when position in top related.)"
               value={state.top_pos}
               prefix={<p>0</p>}
+              disabled = {state?.position.includes("bottom")}
               min={0}
               max={100}
               suffix={
@@ -95,6 +110,28 @@ export default function Edit({ state, setState }) {
                 </p>
               }
               onChange={(val) => handleChange("top_pos", val)}
+              output
+            />
+            <div className='spacing' />
+
+            <RangeSlider
+              label="Bottom Margin (Only Applicable when position in bottom related.)"
+              value={state.bottom_pos}
+              prefix={<p>0</p>}
+              disabled = {state?.position.includes("top")}
+              min={0}
+              max={100}
+              suffix={
+                <p
+                  style={{
+                    minWidth: '24px',
+                    textAlign: 'right',
+                  }}
+                >
+                  {"100%"}
+                </p>
+              }
+              onChange={(val) => handleChange("bottom_pos", val)}
               output
             />
           </Card>

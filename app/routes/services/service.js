@@ -1,7 +1,7 @@
 import { authenticate } from "../../shopify.server";
 import axios from "axios";
 
-const url = "https://2b30-182-69-18-33.ngrok-free.app/api";
+const url = "https://5a21-2401-4900-1c7a-ed05-25be-d4c2-ce22-1461.ngrok-free.app/api";
 
 export async function Connect(request) {
   const { admin, session } = await authenticate.admin(request);
@@ -92,6 +92,23 @@ export async function UpdateScript(data) {
   });
   console.log(res)
   if (res.status === 200) return { status: 200 };
+  else {
+    console.log(res.data.error);
+    return {
+      status: 500,
+      message: "Fail"
+    };
+  }
+}
+
+
+export async function uploadIcon(data){
+  let res = await axios.post(`${url}/uploadIcon`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
+  });
+  if (res.status === 200) return { ...res.data };
   else {
     console.log(res.data.error);
     return {
